@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="d" class="exam05.Dept">
+		<property name="dno" value="10"/>
+		<property name="dname" value="개발1팀"/>
+		<property name="dloc" value="판교"/>
+	</bean>
+	
+	<bean id="dao" class="exam05.DeptDAO">
+		<property name="dept" ref="d"/>
+		<property name="title" value="쌍용미디어"/>
+		<property name="cnt" value="50"/>
+	</bean>
+</beans>

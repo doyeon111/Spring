@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="dept" class="exam06.Dept">
+		<property name="dno" value="10"/>
+		<property name="dname" value="개발1팀"/>
+		<property name="dloc" value="서교동"/>
+	</bean>
+	
+	<bean id="dept2" class="exam06.Dept">
+		<property name="dno" value="20"/>
+		<property name="dname" value="개발2팀"/>
+		<property name="dloc" value="판교"/>
+	</bean>
+	
+	<bean id="dao" class="exam06.DeptDAO"
+		autowire="byName"> <!-- 자동으로 설정 -->
+		<property name="title" value="쌍용미디어"/>
+		<property name="cnt" value="10"/>
+	</bean>
+	
+</beans>
