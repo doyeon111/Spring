@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="kim" class="exam01.Person" scope="prototype"> <!-- scope=singleton은 작성하지 않아도 기본으로 생성되어있음. prototype으로 설정하면 생성자를 다르게 설정 -->
+		<property name="name" value="김유신"/>
+		<property name="age" value="20"/>
+	</bean>
+</beans>
