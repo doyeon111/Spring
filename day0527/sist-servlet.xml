@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- dao에 대한 객체 생성 -->
+	<bean id="boardDAO" class="com.sist.dao.BoardDAO"/>
+	<bean class="com.sist.controller.ListBoardController" autowire="byType"/> <!-- byType 으로 의존관계 설정 -->
+	<bean class="com.sist.controller.InsertBoardController" autowire="byType"/>
+	<bean class="com.sist.controller.DetailBoardController" autowire="byType"/>
+	
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"><!-- IRVR 약자 -->
+		<property name="prefix" value="/WEB-INF/views/"/> <!-- 위치설정 -->
+		<property name="suffix" value=".jsp"/> <!-- 뷰의 확장자는 .jsp로 설정 -->
+	</bean>
+</beans>
