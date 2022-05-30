@@ -1,0 +1,4 @@
+1. pom.xml 에 jsp 설정
+2. application.properties 파일 설정하기
+3. vo 만들기
+4. mybatis 설정파일 만들기
