@@ -1,0 +1,87 @@
+<파일 업로드를 위한 스프링 설정>
+pom.xml 파일에 추가
+
+form 태그에 enctype 설정과 file이름 설정
+
+vo에 MultipartFile에 uploadFile 속성 추가
+
+file 업로드 하기 위한 upload 폴더 생성
+
+controller 에서 upload의 실경로를 알아야 하기 때문에 Http~~~를 통해 실경로를 알아온다.
+
+
+-------------------------------------------------------------------------------------
+b_ref  		: 서로 관련있는 글임을 나타내기 위한 그룹을 위해 사용
+				새글: 글 번호와 동일하게 설정
+				답글: 부모 글의 b_ref와 동일하게 설정
+
+b_step 		: 서로 관련있는 글일 때에 글이 출력되는 순서를 위해 사용
+				새글: 0으로 설정
+				답글:	이미 달려있는 답글들의 b_step을 1씩 증가 (같은 스텝일 경우)
+					부모글의 b_step + 1 로 설정
+				
+b_level(답글의 깊이)	: 답글의 깊이(계층)을 위하여 사용
+						새글: 0으로 설정 
+						답글: 부모글의 b_level + 1로 설정
+
+
+
+no		title		b_ref		b_step		b_level
+1		a			1			0			0	
+2		b			2			0			0
+3		c			3			0			0
+
+(답글)
+4		b1			2			4			1
+5		b2			2			2			1
+6		b3			2			1 (더 최신순)	1
+
+7		b21			2			3			2			
+		
+
+
+
+
+
+<글이 출력되는 순서>
+
+1		a
+2		b
+6		 b3
+5		 b2
+7			b22	
+4		 b1
+3		c
+
+
+
+
+-------------------------------------------------------------------------------------------------
+
+select title from board order by b_ref, b_step
+
+
+select rownum n, title
+from (select title from board order by b_ref, b_step)
+where rownum between 11 and 20;
+
+
+
+select title
+from (select rownum n, title
+		from (select title from board order by b_ref, b_step))
+where n between 11 and 20;
+
+
+
+select no, title, writer, pwd, content, regdate, hit, fname, b_ref, b_step, b_level
+from (select rownum n, no, title, writer, pwd, content, regdate, hit, fname, b_ref, b_step, b_level
+		from (select * from board order by b_ref, b_step))
+where n between 11 and 20;
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+
+
+
