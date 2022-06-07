@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goods">
+  <select id="findAll" resultType="goodsVO">
+    select no,item,qty,price,fname from 
+	(select rownum n, no,item,qty,price,fname
+	from (select * from goods 
+	
+	<if test="keyword != null">
+
+		<if test="searchColumn == 'item'">
+			where item like '%' || #{keyword} || '%'
+		</if>
+	
+		<if test="searchColumn != 'item'">
+			<![CDATA[
+				where price <= #{keyword}
+			]]>
+			
+		</if>
+	</if>
+	
+	 <if test="sortColumn != null"> <!--컬럼 이름에 대한 변수처리는 ${}로 해야함. 일반 값은 #{}으로 설정 -->
+		order by ${sortColumn}
+	</if>
+	))
+	where n between #{start} and #{end}
+  </select>
+
+  <select id="getNextNo" resultType="java.lang.Integer">
+  	select nvl(max(no), 0)+1 from goods
+  </select> 
+  
+  <insert id="insert" parameterType="goodsVO">
+  	insert into goods values(#{no},#{item},#{qty},#{price},#{fname})
+  </insert>
+  
+  <select id="findByNo" resultType="goodsVO">
+  	select * from goods where no=#{no}
+  </select>
+  
+  <update id="update" parameterType="goodsVO">
+  	update goods set item=#{item},qty=#{qty},price=#{price},fname=#{fname} where no=#{no}
+  </update>
+  
+  <delete id="delete">
+  	delete goods where no=#{no}
+  </delete>
+  
+  <select id="totalRecord" resultType="java.lang.Integer">
+  	select count(*) from goods
+  	
+  	<if test="keyword != null">
+
+		<if test="searchColumn == 'item'">
+			where item like '%' || #{keyword} || '%'
+		</if>
+	
+		<if test="searchColumn != 'item'">
+			<![CDATA[
+				where price <= #{keyword}
+			]]>
+		</if>
+	</if>
+  </select>
+</mapper>
