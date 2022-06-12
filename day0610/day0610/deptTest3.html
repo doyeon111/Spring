@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$.ajax({url:"/listDept",success:function(data){
+			var list = "<table>";
+			list += "<tr>";
+			list += "<td>부서번호</td><td>부서명</td><td>부서위치</td>"
+			list += "</tr>";
+			for(i=0; i<data.length; i++){				
+				list+= "<tr>";
+				for(var j in data[i]){
+					list += "<td>"+data[i][j]+"</td>";
+				}		
+				list+= "</tr>";
+			}
+			
+			list += "</table>";
+			
+			document.getElementById("list").innerHTML = list;
+		}});
+	});
+</script>
+</head>
+<body>
+<div id="list"></div>
+</body>
+</html>

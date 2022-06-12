@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var students = [];
+	
+	window.onload = function(){
+		
+		var clearInput = function(){
+			for(i=0; i<arguments.length; i++){
+				document.getElementById( arguments[i]  ).value = "";
+			}
+		}
+		
+		
+		document.getElementById("btnAdd").onclick = function(){
+			var student = {};
+			student.name = document.getElementById("name").value;
+			student.kor = document.getElementById("kor").value;
+			student.math = document.getElementById("math").value;
+			student.eng = document.getElementById("eng").value;
+			student.science = document.getElementById("science").value;
+			
+			students.push(student);
+			console.log(students);
+			console.log("----------------------------");
+			
+			clearInput("name","kor","math","eng","science")
+		}
+		
+		
+		document.getElementById("btnWrite").onclick = function(){
+			var tag = "";
+			tag += "<table>";
+			tag += "<td>이름</td>";
+			tag += "<td>국어</td>";
+			tag += "<td>수학</td>";
+			tag += "<td>영어</td>";
+			tag += "<td>과학</td>";
+			
+			for(var i in students){
+				var s = students[i];
+				tag += "<tr>";
+				for(var key in s ){
+					tag += "<td>"+s[key]+"</td>";
+				}
+				tag += "</tr>";
+			}			
+			tag += "</table>";
+			document.getElementById("output").innerHTML = tag;
+		}
+	}
+</script>
+</head>
+<body>
+	이름 : <input type="text" id="name"><br>
+	국어 : <input type="number" id="kor"><br>
+	수학 : <input type="number" id="math"><br>
+	영어 : <input type="number" id="eng"><br>
+	과학 : <input type="number" id="science"><br>
+	<button id="btnAdd">추가</button>
+	<button id="btnWrite">출력</button>
+	<div id="output"></div>
+</body>
+</html>
+
+
+
+
+

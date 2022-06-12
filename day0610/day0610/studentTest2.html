@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var students = [];
+	
+	window.onload = function(){
+		document.getElementById("btnAdd").onclick = function(){
+			var student = {};
+			student.name = document.getElementById("name").value;
+			student.kor = document.getElementById("kor").value;
+			student.math = document.getElementById("math").value;
+			student.eng = document.getElementById("eng").value;
+			student.science = document.getElementById("science").value;
+			
+			students.push(student);
+			console.log(students);
+			console.log("----------------------------");
+			
+			document.getElementById("name").value = "";
+			document.getElementById("kor").value = "";
+			document.getElementById("math").value = "";
+			document.getElementById("eng").value = "";
+			document.getElementById("science").value = "";
+		}
+	}
+</script>
+</head>
+<body>
+	이름 : <input type="text" id="name"><br>
+	국어 : <input type="number" id="kor"><br>
+	수학 : <input type="number" id="math"><br>
+	영어 : <input type="number" id="eng"><br>
+	과학 : <input type="number" id="science"><br>
+	<button id="btnAdd">추가</button>
+</body>
+</html>
+
+
+
+
+
