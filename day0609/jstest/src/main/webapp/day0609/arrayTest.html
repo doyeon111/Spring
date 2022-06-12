@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		var data = ["김치찌개", "김치볶음밥", "떡볶이", "치킨"];
+		var list = "";
+		list += "<ul>";
+		
+		for(i=0; i<data.length; i++) {
+			list += "<li>" + data[i] + "</li>";
+		}
+		
+		list += "</ul>";
+		
+		document.getElementById("foodList").innerHTML = list;
+	}
+
+	
+</script>
+</head>
+<body>
+	<div id="foodList"></div>
+
+</body>
+</html>

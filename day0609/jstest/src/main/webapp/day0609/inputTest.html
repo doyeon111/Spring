@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		window.onload = function() {
+			name = prompt("이름을 입력하세요.", "홍길동"); //alert 창에 text를 작성할 수 있는 함수 ==> prompt , 뒤에 홍길동을 작성한 값은 default 값으로 설정
+			//alert("이름은: " + name + "입니다.");
+			document.getElementById("name").innerHTML = name;
+		}
+		
+	</script>
+	
+	이름은 <span id="name"></span> 입니다.
+</body>
+</html>

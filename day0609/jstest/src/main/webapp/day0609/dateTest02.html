@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function(){
+			setInterval(function(){
+				var now = new Date();
+				var year = now.getFullYear();
+				var month = now.getMonth();
+				var date = now.getDate();
+				var hours = now.getHours();
+				var minutes = now.getMinutes();
+				var seconds = now.getSeconds();
+				
+				var data = year + "년" + month + "월" + date + "일" + hours + "시" + minutes + "분" + seconds + "초";
+				
+				document.getElementById("now").innerHTML = data;
+				
+			}, 1000);
+			
+		
+	}
+</script>
+</head>
+<body>
+	현재 날짜와 시간은: <span id="now"></span>
+</body>
+</html>

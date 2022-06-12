@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	window.onload = function(){ //문서가 다 만들고 난 다음에 동작
+		var list = "";
+		
+		list += "<ul>";
+		list += "<li>김치볶음밥</li>";
+		list += "<li>김치찌개</li>";
+		list += "<li>떡볶이</li>";
+		list += "<li>치킨</li>";
+		list += "</ul>"
+		
+		//문서가 모두 만들어지고 난 다음 동작하기 때문에 foodList를 찾을 수 있다!
+		document.getElementById("foodList").innerHTML = list;
+	}
+
+	
+</script>
+</head>
+<body>
+	<hr>
+	<div id="foodList"></div>
+	<hr>
+	
+</body>
+</html>

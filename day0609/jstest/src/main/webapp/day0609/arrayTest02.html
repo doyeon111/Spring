@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+			var arr = [273, 32, 103, 57, 52];
+			var name = "홍길동";
+			var age = 20;
+			var isStudent = true;
+			
+			window.onload = function() {
+				document.getElementById("btnOK").onclick = function(){ //id가 btnOK 인 것을 찾는다.
+					var tot = 0;
+					for(i=0; i<arr.length; i++) {
+						tot += arr[i];
+					}
+					document.getElementById("result").innerHTML = tot;
+					
+				}
+				
+				document.getElementById("btnType").onclick = function(){ //id가 btnType인 것을 찾아 버튼을 클릭했을 때 실행되는 함수
+					console.log(typeof arr);
+					console.log(typeof name);
+					console.log(typeof age);
+					console.log(typeof isStudent);
+					console.log(typeof kim); //undefined
+					console.log(typeof "kim"); //String
+					console.log(typeof "100"); //String
+					console.log(typeof 100); //number
+					
+				}
+			}
+			
+	
+</script>
+</head>
+<body>
+	<button id="btnOK">배열의 총합</button>
+	결과: <span id="result"></span>
+	<hr>
+	<button id="btnType">자료형 확인</button>
+</body>
+</html>

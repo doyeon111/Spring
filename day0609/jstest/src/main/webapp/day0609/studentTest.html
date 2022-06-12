@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function pro() {
+		kor = Number(document.getElementById("kor").value);
+		eng = Number(document.getElementById("eng").value);
+		math = Number(document.getElementById("math").value);
+		tot = kor + eng + math;
+		avg = tot / 3;
+		document.getElementById("tot").innerHTML = tot;
+		document.getElementById("avg").innerHTML = avg;
+	}
+</script>
+</head>
+<body>
+	<h2>학생의 이름, 국어, 영어, 수학을 입력받아 총점과 평균을 계산하여 출력하기</h2>
+	<hr>
+	이름: <input type="text" id="name"><br>
+	국어: <input type="number" id="kor"><br>
+	영어: <input type="number" id="eng"><br>
+	수학: <input type="number" id="math"><br>
+	<input type="button" value="확인" onclick="pro()"><br>
+	총점: <span id="tot"></span><br>
+	평균: <span id="avg"></span>
+</body>
+</html>

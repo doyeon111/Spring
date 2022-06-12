@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function(){
+		var now = new Date(); //오늘 현재날짜와 시간에 대한 정보를 가져옴
+		var hh = now.getHours();
+		var img = "";
+		if(hh <= 17) { //시간이 17시보다 작으면 해 사진 출력
+			img += "<img src='sun.png'>";
+		} else {
+			img += "<img src='moon.png'>";
+		}
+		
+		document.getElementById("result").innerHTML = img;
+		
+	}
+</script>
+</head>
+<body>
+	<div id="result"></div>
+</body>
+</html>
