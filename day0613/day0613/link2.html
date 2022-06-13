@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	search = location.search;
+	console.log(search);
+	
+	data = search.substr(1); //?이후에 데이터만 출력
+	console.log(data); 
+	
+	arr = data.split("&"); // &로 분리
+	console.log(arr);
+	
+	var d = {};
+	
+	
+	for(var i in arr) { //key와 value로 뽑아오기
+		var a = arr[i].split("=");
+		var key = a[0];
+		var value = a[1];
+		console.log("key: " + key);
+		console.log("value: " , value);
+		d[key] = value;
+	}
+	
+	var id = d.id;
+	var age = d.age;
+	
+	console.log("--------------------------");
+	console.log(id);
+	console.log(age);
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("btnNew").onclick = function() {
+			//window.open(); //새로운 창 열기
+			window.open("http://www.hanb.co.kr", "child", "width=600, heigth=300"); //버튼을 누르면 가로, 세로길이인 크기를 정해주지 않으면 탭으로 열리고, 크기를 지정해주면 창으로 열린다.
+		}
+	}
+</script>
+</head>
+<body>
+	<button id="btnNew">새 창 열기</button>
+</body>
+</html>

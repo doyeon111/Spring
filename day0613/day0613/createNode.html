@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("btnAdd").onclick = function() {
+			var h = document.createElement("h1"); //h1 태그를 만들어주세요.
+			var t = document.createTextNode("hello DOM");
+			h.appendChild(t);
+			document.getElementById("result").appendChild(h);
+		}
+	}
+</script>
+</head>
+<body>
+	<div id="result"></div>
+	<hr>
+	<button id="btnAdd">노드 추가</button>
+</body>
+</html>

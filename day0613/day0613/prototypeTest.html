@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	function Student(name, kor, math, eng, sci) {
+		this.name = name;
+		this.kor = kor;
+		this.math = math;
+		this.eng = eng;
+		this.sci = sci;
+	}
+	
+	Student.prototype.getSum = function() {
+		return this.kor + this.math + this.eng + this.sci; //모든 과목의 합을 반환
+	}
+	
+	Student.prototype.getAverage = function() {
+		return this.getSum()/4; //모든 과목의 평균을 반환
+	}
+	
+	Student.prototype.toString = function() { // 이름, 총점, 평균을 프로토타입을 사용하여 문자열로 반환
+		return "이름: " + this.name + ", 총점: " + this.getSum() + ", 평균: " + this.getAverage();
+	}
+	
+	
+	//객체 생성
+	var kim = new Student("김유신", 100, 80, 90, 100); //생성자 함수에게 전달
+	console.log(kim.toString()); //콘솔에 toString 을 출력
+	console.log(kim instanceof Student); //true --> instanceof : 해당 객체가 어떠한 생성자 함수를 통해 생성됐는지 확인할 때 사용
+	console.log(kim instanceof String); //false
+	
+</script>
+
+
+</body>
+</html>

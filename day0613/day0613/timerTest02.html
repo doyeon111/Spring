@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function(){
+		//시작 버튼을 클릭하면 시간 초가 시작되고, 중지 버튼을 누르면 시간이 멈춘다.
+		var nowID;
+		
+		document.getElementById("btnStart").onclick = function() {
+			nowID = setInterval(function(){
+				var today = new Date();
+				var year = today.getFullYear();
+				var month = today.getMonth();
+				var date = today.getDate();
+				var hours = today.getHours();
+				var minutes = today.getMinutes();
+				var seconds = today.getSeconds();
+				var str = year + "년 " + (month+1) + "월 " + date + "일 ";
+				str += hours + ":" + minutes + ":" + seconds;
+				
+				document.getElementById("now").innerHTML = str;
+			}, 1000);
+		}
+		
+		document.getElementById("btnStop").onclick = function() {
+			clearInterval(nowID);
+		}
+
+	}
+</script>
+</head>
+<body>
+	현재 날짜와 시간: <span id="now"></span>
+	<hr>
+	<button id="btnStart">시작</button>
+	<button id="btnStop">중지</button>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		a = setInterval(function(){
+			document.body.innerHTML += "<p>" + new Date() + "</p>";
+		}, 1000);
+		
+		//10초가 지나면 종료
+		setTimeout(function(){
+			clearInterval(a); //10초가 되면 a라는 타이머를 종료할 수 있다.
+		}, 10000);
+	}
+</script>
+</head>
+<body>
+	
+</body>
+</html>

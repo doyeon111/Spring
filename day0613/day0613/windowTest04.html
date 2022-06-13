@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+//input.html의 부모창
+	window.onload = function() {
+		document.getElementById("btnOpen").onclick = function() {
+			a = window.open("input.html", "", "width=400, height=300");
+			//부모창을 의미하는 것 : opener
+			
+			
+			setTimeout(function() {
+				a.document.getElementById("name").value = "홍길동"; //input.html의 이름 text부분에 홍길동이라고 띄우고 싶을 경우
+				a.document.getElementById("age").value = 20;
+			}, 500);
+			
+		}
+	}
+</script>
+</head>
+<body>
+	<button id="btnOpen">입력 창 열기</button><br>
+	<div id="result"></div>
+</body>
+</html>

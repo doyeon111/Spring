@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var news = '尹, 北 방사포에도 영화관람? "의구심 가질 것 없다"';
+	
+	window.onload = function() {
+		i=0;
+		str = "";
+		
+		setInterval(function(){
+			str += news.charAt(i);
+			i++;
+			document.getElementById("output").innerHTML = str;
+			
+			if(i >= news.length) { 
+				i=0; //글자가 다 가져와지면 다시 0부터 시작
+				str = ""; // 이전 것을 지우고 다시 처음부터 출력
+			}
+			
+		}, 100);
+	}
+	
+</script>
+</head>
+<body>
+	실시간 뉴스 : <span id="output"></span>
+</body>
+</html>

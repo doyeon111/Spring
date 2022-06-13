@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var audio = new Audio("Kalimba.mp3");
+</script>
+</head>
+<body>
+	<button onclick="audio.play();">PLAY</button> <!-- 음악 시작 -->
+	<button onclick="audio.pause();">PAUSE</button> <!-- 음악 중지 -->
+	<input type="number" onchange="audio.currentTime=this.value"> <!-- 입력한 값의 음악의 시간으로 이동 -->
+	<input type="number" onchange="audio.volume=this.value"> <!-- 입력한 값의 수로 볼륨 조절 -->
+</body>
+</html>

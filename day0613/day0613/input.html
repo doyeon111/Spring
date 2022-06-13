@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	//windowTest04.html의 자식창이다.
+	window.onload = function() {
+		document.getElementById("btnOK").onclick = function() {
+			var name = document.getElementById("name").value;
+			var age = document.getElementById("age").value;
+			var str = "이름은 " + name + "이고 나이는 " + age + "살 입니다.";
+			
+			opener.document.getElementById("result").innerHTML = str;
+			window.close(); //결과를 확인하고 창닫기
+			
+		}
+		
+	}
+	
+</script>
+</head>
+<body>
+	이름: <input type="text" id="name"><br>
+	나이: <input type="text" id="age">
+	<button id="btnOK">확인</button>
+</body>
+</html>

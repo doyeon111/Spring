@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var a;
+	window.onload = function() {
+		document.getElementById("btnNew").onclick = function() {
+			a = window.open("", "", "width=400, height=300"); 
+		}
+		
+		document.getElementById("btnWrite").onclick = function() {
+			a.document.write("<h1>Hello</h1>"); //새로운 창에다가 html에 출력할 수 있음
+		}
+		
+		
+	}
+</script>
+</head>
+<body>
+	<button id="btnNew">새 창 열기</button>
+	<button id="btnWrite">새 창에 출력</button>
+</body>
+</html>
