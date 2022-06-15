@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.item {
+		width: 300px;
+		border: solid 1px pink;
+		border-radius: 15px;
+		padding: 10px;
+		margin: 5px;
+		display: inline-block;
+	}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("img").css("width", 250);
+		setInterval(function(){
+			$(".item").first().appendTo("body"); //맨첫번째 것이 맨 뒤로 이동하게 된다.
+		}, 2000);
+	});
+</script>
+</head>
+<body>
+
+	<div class="item">
+		<img src="./goods/ball1.jpg"><br>
+		상품명: 축구공1 <br>
+		가격: 5000원
+	</div>
+	
+	<div class="item">
+		<img src="./goods/ball2.jpg"><br>
+		상품명: 축구공2 <br>
+		가격: 5000원
+	</div>
+	
+	<div class="item">
+		<img src="./goods/ball3.jpg"><br>
+		상품명: 축구공3 <br>
+		가격: 5000원
+	</div>
+	
+	<div class="item">
+		<img src="./goods/ball4.jpg"><br>
+		상품명: 축구공4 <br>
+		가격: 5000원
+	</div>
+	
+	<div class="item">
+		<img src="./goods/ball5.jpg"><br>
+		상품명: 축구공5 <br>
+		가격: 5000원
+	</div>
+	
+</body>
+</html>

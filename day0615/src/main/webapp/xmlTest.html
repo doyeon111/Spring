@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	var xml = ""; //변수선언
+	xml += "<member_list>"; //제일 바깥에 있는 것: 루트노드
+	xml += "<member>";
+	xml += "<name>홍길동</name>";
+	xml += "<age>20</age>";
+	xml += "</member>";
+	xml += "<member>";
+	xml += "<name>유관순</name>";
+	xml += "<age>30</age>";
+	xml += "</member>";
+	xml += "<member>";
+	xml += "<name>이순신</name>";
+	xml += "<age>40</age>";
+	xml += "</member>";
+	xml += "</member_list>";
+	
+	$(function(){
+		console.log(xml); //위의 태그를 그대로 출력하면 문자로 그대로 출력된다.
+		var xmlDoc = $.parseXML(xml); //parseXML 을 함으로써 객체로 만들어주고, 태그로 설정됨.
+		console.log(xmlDoc);
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		//무한 스크롤
+		
+		$(window).scroll(function(){
+			var scrollHeight = $(window).scrollTop() + $(window).height();
+			var documentHeight = $(document).height();
+			
+			//스크롤이 거의 내려갈 때 쯔음 동적으로 몇 개 더 만든다.
+			if(scrollHeight + 200 >= documentHeight) {
+				for(i=0; i<=10; i++) {
+					$("body").append($("<h1></h1>").html("hello"));
+				}
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<!-- 무한 스크롤 -->
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	<h1>hello</h1>
+	
+	
+</body>
+</html>

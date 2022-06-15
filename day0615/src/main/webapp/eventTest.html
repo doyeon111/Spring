@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.reverse {
+		background: black;
+		color: white;
+	}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		/*
+		//마우스가 올라가면 reverse 스타일 실행
+		$("h1").bind("mouseenter", function(){
+			$(this).addClass("reverse");
+		});
+		
+		//마우스가 나갈 경우 reverse 스타일 적용 x
+		$("h1").bind("mouseleave", function(){
+			$(this).removeClass("reverse");} */
+		
+		//객체 형태로 표현
+		/* $("h1").bind({
+			mouseenter:function(){
+				$(this).addClass("reverse");
+			},
+			mouseleave:function(){
+				$(this).removeClass("reverse");
+			}
+		}); */
+		
+		/*
+		$("h1").mouseenter(function(){
+			$(this).addClass("reverse");
+		});
+		
+		$("h1").mouseleave(function(){
+			$(this).removeClass("reverse");
+		}); */
+		
+		//hover로 한번에 실행
+		$("h1").hover(function(){
+			$(this).addClass("reverse");
+		}, function(){
+			$(this).removeClass("reverse");
+		});
+		
+	});
+</script>
+</head>
+<body>
+	<h1>홍길동</h1>
+	<h1>이순신</h1>
+	<h1>유관순</h1>
+	
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.member{
+		border: solid 1px pink;
+		border-radius: 15px;
+		width: 300px;
+		height: 200px;
+		margin: 10px;
+		padding: 10px;
+	}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$.ajax({url:"/listCustomer", success:function(data){ 
+			console.log(data);
+			var arr = $.parseXML(data);
+			console.log(arr);
+			
+			var list = $(arr).find("customer");
+			$.each(list, function() { //c는 customer 태그
+				var div = $("<div></div>");
+				$(div).addClass("member"); //style 적용
+				var name = $("<h1></h1>").html($(this).find("name").text()); //c를 찾아서 name태그를 찾아 그 안의 글자를 가지고온다.
+				var str = $(this).find("custid").text();
+				str += "/" + $(this).find("address").text();
+				str += "/" + $(this).find("phone").text(); //str에서 한꺼번에 처리해서 info로 넣어주기
+				var info = $("<p></p>").html(str);
+				$(div).append(name, info);
+				$("body").append(div);
+
+			});
+		}});
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>

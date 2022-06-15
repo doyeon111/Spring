@@ -1,0 +1,3 @@
+ajax 함수
+listGoods는 배열을 응답하고 있다.
+$.ajax({url:"/listGoods", success:function(data){});

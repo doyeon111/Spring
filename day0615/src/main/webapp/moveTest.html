@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("img").css("width", 250);
+		setInterval(function(){
+			$("img").first().appendTo("body"); //맨첫번째 것이 맨 뒤로 이동하게 된다.
+		}, 2000);
+	});
+</script>
+</head>
+<body>
+	<img src="./goods/ball1.jpg">
+	<img src="./goods/ball2.jpg">
+	<img src="./goods/ball3.jpg">
+	<img src="./goods/ball4.jpg">
+	<img src="./goods/ball5.jpg">
+</body>
+</html>

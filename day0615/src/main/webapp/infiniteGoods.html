@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.box {
+		border: 1px solid pink;
+		width: 250px;
+		height: 300px;
+		border-radius: 10px;
+		padding: 10px;
+		margin: 10px;
+	}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var arr;
+		$.ajax({
+			url:"/listGoods",
+			success:function(data) {
+				arr = data;
+				listGoods();
+			}
+		});
+		
+		function listGoods() {
+			$.each(arr, function(){
+				var div = $("<div></div>");
+				$(div).addClass("box");
+				
+				var img = $("<img/>");
+				$(img).attr({
+					src:"./goods/"+this.fname,
+					width:100,
+					height:100
+				});
+				
+				$(div).append(img);
+				$(div).append($("<p></p>").html("상품명: " + this.item));
+				$(div).append($("<p></p>").html("수량: " + this.qty));
+				$(div).append($("<p></p>").html("가격: " + this.price));
+				
+				$("body").append(div);
+			});
+		} //여기까지는 상품이 끝나면 끝
+		
+		//여기는 무한스크롤
+		$(window).scroll(function(){
+			var scrollHeight = $(window).scrollTop() + $(window).height();
+			var documentHeight = $(document).height();
+			
+			if(scrollHeight + 200 >= documentHeight) {
+				listGoods();
+			}
+		});
+		
+		
+		
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>
