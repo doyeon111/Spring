@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	//테이블에 값 추가하기 + 총점 추가
+	window.onload = function() {
+		document.getElementById("btnAdd").onclick = function() {
+			
+			var name = document.getElementById("name").value;
+			var kor =  Number(document.getElementById("kor").value);
+			var eng =  Number(document.getElementById("eng").value);
+			var math = Number(document.getElementById("math").value);
+			var tot = kor + eng + math;
+			var avg = tot / 3;
+			
+			var tr = document.createElement("tr");
+			var td_name = document.createElement("td");
+			var td_kor = document.createElement("td");
+			var td_eng = document.createElement("td");
+			var td_math = document.createElement("td");
+			var td_tot = document.createElement("td");
+			var td_avg = document.createElement("td");
+			
+			var txt_name = document.createTextNode(name);
+			var txt_kor = document.createTextNode(kor);
+			var txt_eng = document.createTextNode(eng);
+			var txt_math = document.createTextNode(math);
+			var txt_tot = document.createTextNode(tot);
+			var txt_avg = document.createTextNode(avg);
+			
+			td_name.appendChild(txt_name);
+			td_kor.appendChild(txt_kor);
+			td_eng.appendChild(txt_eng);
+			td_math.appendChild(txt_math);
+			td_tot.appendChild(txt_tot);
+			td_avg.appendChild(txt_avg);
+
+			
+			tr.appendChild(td_name);
+			tr.appendChild(td_kor);
+			tr.appendChild(td_eng);
+			tr.appendChild(td_math);
+			tr.appendChild(td_tot);
+			tr.appendChild(td_avg);
+			
+			
+			document.getElementById("list").appendChild(tr);
+			
+			//작성했던 텍스트를 지우기 위함
+			document.getElementById("name").value = ""; 
+			document.getElementById("kor").value = ""; 
+			document.getElementById("eng").value = ""; 
+			document.getElementById("math").value = ""; 
+			
+		}
+	}
+</script>
+</head>
+<body>
+	이름: <input type="text" id="name"><br>
+	국어: <input type="text" id="kor"><br>
+	영어: <input type="text" id="eng"><br>
+	수학: <input type="text" id="math"><br>
+	<button id="btnAdd">추가</button>
+	<hr>
+	<table border="1" width="80%" id="list">
+		<tr>
+			<td>이름</td>
+			<td>국어</td>
+			<td>영어</td>
+			<td>수학</td>
+			<td>총점</td>
+			<td>평균</td>
+		</tr>
+	</table>
+</body>
+</html>

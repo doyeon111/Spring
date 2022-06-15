@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#btnAdd").click(function(){
+		var tr = $("<tr></tr>"); //자바스크립트의 tr을 설정해준 것과 같다. tr = document.createElement("tr"); 와 같음
+		//var td_name = $("<td></td>").html($("#name").val()); //name에 있는 값을 가지고와서 td의 글자로 설정 ===> 아래 것을 한꺼번에 작성한 것임
+		
+		//미리 변수에 담아놓기
+		var name = $("#name").val();
+		var kor = Number($("#kor").val());
+		var eng = Number($("#eng").val());
+		var math = Number($("#math").val());
+		var tot = kor + eng + math;
+		var avg = tot / 3;
+		
+		//td안에 들어갈 글자
+		var td_name = $("<td></td>").html(name);
+		var td_kor = $("<td></td>").html(kor);
+		var td_eng = $("<td></td>").html(eng);
+		var td_math = $("<td></td>").html(math);
+		var td_tot = $("<td></td>").html(tot);
+		var td_avg = $("<td></td>").html(avg);
+		
+		//tr에 한꺼번에 넣는다.
+		$(tr).append(td_name, td_kor, td_eng, td_math, td_tot, td_avg);
+		
+		//id가 list인것을 찾아서 tr을 추가
+		$("#list").append(tr);
+		
+		//텍스트 지우기
+		$("#name").val("");
+		$("#kor").val("");
+		$("#eng").val("");
+		$("#math").val("");
+		
+		
+		$(tr).click(function(){
+			
+			var td_list = $(this).find("td"); //눌러진 나를 가지고 td를 찾아라.
+			
+			$("#name").val($(td_list[0]).html());
+			$("#kor").val($(td_list[1]).html());
+			$("#eng").val($(td_list[2]).html());
+			$("#math").val($(td_list[3]).html());
+		});
+		
+	});
+	
+	
+});
+	
+</script>
+</head>
+<body>
+	이름: <input type="text" id="name"><br>
+	국어: <input type="text" id="kor"><br>
+	영어: <input type="text" id="eng"><br>
+	수학: <input type="text" id="math"><br>
+	<button id="btnAdd">추가</button>
+	<hr>
+	<table border="1" width="80%" id="list">
+		<tr>
+			<td>이름</td>
+			<td>국어</td>
+			<td>영어</td>
+			<td>수학</td>
+			<td>총점</td>
+			<td>평균</td>
+		</tr>
+	</table>
+</body>
+</html>

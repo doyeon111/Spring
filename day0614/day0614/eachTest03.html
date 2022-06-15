@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+//jQuery
+	$(function(){
+		var arr = [
+					{name: "한빛미디어", link: "http://www.hanb.co.kr"},
+					{name: "네이버", link: "http://www.naver.com"},
+					{name: "구글", link: "http://www.google.com"}
+		];
+		
+		//배열만큼 반복문 돌기
+		$.each(arr, function(index, item){
+			var output = "";
+			output += "<a href='"+item.link+"'>";
+			output += "<h1>"+item.name+"</h1>";
+			output += "</a>";
+			
+			document.body.innerHTML += output;
+		});
+		
+		
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>

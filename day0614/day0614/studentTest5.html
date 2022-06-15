@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	//테이블에 값 추가하기 + 총점 추가
+	window.onload = function() {
+		document.getElementById("btnAdd").onclick = function() {
+			
+			tr = document.createElement("tr");
+			
+			
+			//onmouseover: 마우스가 들어올때 / onmouseleave: 마우스가 나갈때
+			//tr에 이벤트 걸기(tr에 마우스가 올라가면 함수 실행)
+			tr.onmouseover = function() {
+				console.log("마우스 오버");
+				this.style.background = "pink"; //this는 자기자신
+			}
+			
+			//tr에 이벤트 걸기(tr에 마우스가 나갈 때)
+			tr.onmouseleave = function() {
+				console.log("마우스리브");
+				this.style.background = "white";
+			}
+			
+			//더블클릭하면 행 삭제
+			tr.ondblclick = function() {
+				document.getElementById("list").removeChild(this); //부모인 list를 찾아서 현재 더블클릭한 것을 삭제
+			}
+			
+			//input 태그를 모두 잡아옴(배열)
+			arr = document.getElementsByTagName("input"); 
+			
+			tot = 0;
+			
+			
+			//input의 개수만큼 루프를 돈다.
+			for(i=0; i<arr.length; i++) {
+				var txt = document.createTextNode(arr[i].value);
+				var td = document.createElement("td");
+				td.appendChild(txt); // txt를 td에 추가
+				tr.appendChild(td); //td를 tr에 추가
+				
+				if(i != 0) {
+					tot += Number(arr[i].value);
+				}
+				
+			}
+			
+			//평균 구하기
+			var avg = tot / 3;
+			
+			
+			var txtTot = document.createTextNode(tot);
+			var txtAvg = document.createTextNode(avg);
+			var tdTot = document.createElement("td");
+			var tdAvg = document.createElement("td");
+			tdTot.appendChild(txtTot);
+			tdAvg.appendChild(txtAvg);
+			tr.appendChild(tdTot);
+			tr.appendChild(tdAvg);
+			
+			document.getElementById("list").appendChild(tr);
+			
+		}
+	}
+</script>
+</head>
+<body>
+	이름: <input type="text" id="name"><br>
+	국어: <input type="text" id="kor"><br>
+	영어: <input type="text" id="eng"><br>
+	수학: <input type="text" id="math"><br>
+	<button id="btnAdd">추가</button>
+	<hr>
+	<table border="1" width="80%" id="list">
+		<tr>
+			<td>이름</td>
+			<td>국어</td>
+			<td>영어</td>
+			<td>수학</td>
+			<td>총점</td>
+			<td>평균</td>
+		</tr>
+	</table>
+</body>
+</html>

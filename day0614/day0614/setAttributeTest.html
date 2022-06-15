@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("btnShow").onclick = function() {
+			var a = document.getElementById("a");
+			a.src = "../goods/ball1.jpg";
+			a.width = 100;
+			a.height = 100;
+			a.data = 1; //a에는 data라는 속성이 나타나지 않음.
+			
+			var b = document.getElementById("b");
+			b.setAttribute("src", "../goods/ball1.jpg");
+			b.setAttribute("width", 100);
+			b.setAttribute("height", 100);
+			b.setAttribute("data", 1); //b에는 data라는 속성이 나타남.
+		}
+	}
+</script>
+</head>
+<body>
+	<img id="a">
+	<img id="b">
+	<button id="btnShow">이미지 표시하기</button>
+</body>
+</html>

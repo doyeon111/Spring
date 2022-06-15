@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+//jQuery
+	$(function(){
+		var arr = [{name: "홍길동", age: 20},
+					{name: "이순신", age:22},
+					{name: "유관순", age:30}];
+		
+		
+		//평균 나이를 계산하여 출력
+		tot = 0;
+		$.each(arr, function(index, item){
+			tot += item.age; //총점을 먼저 구하기
+		});
+		
+		avg = tot / arr.length;
+		console.log("평균나이: " + avg);
+		
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>
