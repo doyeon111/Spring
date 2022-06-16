@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div {
+		width: 100px;
+		height: 100px;
+		background: orange;
+		position: relative;
+		margin: 10px;
+	}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		$("div").click(function(){
+			
+			$(this).animate({
+				width: '+=50',
+				height: '+=50'
+			}, 2000);
+			
+			/*
+			var width = $(this).css("width");
+			var height = $(this).css("height");
+			
+			$(this).animate({
+				width: parseInt(width)+50,
+				height: parseInt(height)+50
+			}, 2000); */
+			
+			/* console.log(width);
+			console.log(height);
+			console.log(parseInt(width)); //100px이라는 글자를 정수로 만들어줌
+			console.log(parseInt(height)); */
+			
+			
+		})
+	});
+</script>
+</head>
+<body>
+	<div></div>
+
+</body>
+</html>

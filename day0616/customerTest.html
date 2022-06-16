@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			url:"/getCustomer",
+			data:{custid:2}, //ajax 통신을 할 때 서버에게 이와 같은 방식으로 전달한다. -=> 속성 data
+			success:function(data){ //여기 데이터는 내가 마음대로 정할 수 있는 속성
+				console.log(data);
+				
+			}
+		})
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>

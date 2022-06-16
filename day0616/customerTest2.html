@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#btnOK").click(function(){
+			var a = $("#custid").val(); //val 안에 매개변수가 없으면 읽어오는 것, 있으면 설정하는 것
+			$.ajax({
+				url:"/getCustomer",
+				data:{custid:a},
+				success:function(data) {
+					
+					$("#info").empty(); //출력한 사람정보는 모두 지우고 다음 사람 출력
+					
+					var p1 = $("<p></p>").html("이름: " + data.name);
+					var p2 = $("<p></p>").html("주소: " + data.address);
+					var p3 = $("<p></p>").html("전화: " + data.phone);
+					
+					$("#info").append(p1, p2, p3);
+					
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	고객번호: <input type="number" id="custid">
+	<button id="btnOK">검색</button>
+	<hr>
+	<div id="info"></div>
+</body>
+</html>

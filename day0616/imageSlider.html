@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	* {
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	.animation_canvas {
+		overflow: hidden;
+		position: relative;
+		width: 600px;
+		height: 400px;
+	}
+	
+	.slider_panel {
+		width: 3000px;
+		position: relative;
+	}
+	
+	.slider_image {
+		width: 600px;
+		height: 400px;
+		float: left; /*가로로배치*/
+	}
+	
+	.slider_text_panel { /* 고정된 위치에 text 패널 나타남*/
+		position: absolute;
+		left: 50px;
+		top: 200px;
+	}
+	
+	.slider_text {
+		position: absolute;
+		width: 250px;
+		height: 150px;
+	}
+	
+	.control_panel {
+		position: absolute;
+		top: 380px;
+		left: 270px;
+		overflow: hidden;
+		height: 13px;
+	}
+	
+	.control_button {
+		width: 12px;
+		height: 46px;
+		position: relative;
+		
+		float: left;
+		background: url("point_button.png");
+	}
+	
+	.control_button:hover { /*마우스가 올라갔을 때*/
+		top: -16px;
+		
+	}
+	
+	.control_button:active { /*마우스를 눌렀을 때*/
+		top: -31px;
+	}
+	
+	.active {
+		top: -31px;
+	}
+	
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		function moveSlider(index) {
+			var willMoveLeft = -(index *600);
+			$(".slider_panel").animate({left:willMoveLeft}, 2000);
+			
+			//글자를 나타내기 위한 코드
+			$(".slider_text[data-index="+index+"]").show().animate({left:0}, 2000);
+			$(".slider_text[data-index!="+index+"]").hide().animate({left:-300}, 2000);
+			
+			$(".control_button[data-index="+index+"]").addClass("active");
+			$(".control_button[data-index!="+index+"]").removeClass("active");
+		}
+		
+		
+		$(".slider_text").css("left", -300);
+		
+		$(".slider_text").each(function(index){
+			$(this).attr("data-index", index);
+		});
+		
+		$(".control_button").each(function(index){
+			$(this).attr("data-index", index);
+		});
+		
+		$(".control_button").click(function(){
+			var index = $(this).attr("data-index");
+			moveSlider(index);
+		});
+		
+		var randomNumber = Math.round(Math.random() * 4);
+		moveSlider(randomNumber);
+		
+	});
+</script>
+</head>
+<body>
+	<h1>Test Header</h1>
+	<div class="animation_canvas">
+		<div class="slider_panel">
+			<img src="../goods/ball1.jpg" class="slider_image">
+			<img src="../goods/ball2.jpg" class="slider_image">
+			<img src="../goods/ball3.jpg" class="slider_image">
+			<img src="../goods/ball4.jpg" class="slider_image">
+			<img src="../goods/ball5.jpg" class="slider_image">
+		</div>
+		
+		<div class="slider_text_panel">
+			<div class="slider_text">
+				<h1>상품1</h1>
+				<p>축구공1</p>
+			</div>
+			
+			<div class="slider_text">
+				<h1>상품2</h1>
+				<p>축구공2</p>
+			</div>
+			
+			<div class="slider_text">
+				<h1>상품3</h1>
+				<p>축구공3</p>
+			</div>
+			
+			<div class="slider_text">
+				<h1>상품4</h1>
+				<p>축구공4</p>
+			</div>
+			
+			<div class="slider_text">
+				<h1>상품5</h1>
+				<p>축구공5</p>
+			</div>
+		</div>
+		
+		<div class="control_panel">
+			<div class="control_button"></div>
+			<div class="control_button"></div>
+			<div class="control_button"></div>
+			<div class="control_button"></div>
+			<div class="control_button"></div>
+		</div>
+	</div>
+	<h1>Test Header</h1>
+</body>
+</html>

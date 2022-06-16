@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div {
+		width: 100px;
+		height: 100px;
+		background: orange;
+		position: relative;
+		margin: 10px;
+	}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		$("div").toggle(function(){
+			$(this).animate({left:500}, 2000); //마우스 클릭 시 오른쪽으로 500만큼 이동
+		}, function(){
+			$(this).animate({left:0}, 2000); //마우스 클릭시 왼쪽으로 0의 위치까지 이동
+		})
+		
+		/*
+		//마우스 클릭 시 이동
+		$("div").click(function(){
+			$(this).animate({left:500}, 2000); 
+		}) */
+		
+		
+	});
+</script>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.high_light {
+		background: yellow;
+	}
+	
+	.active {
+		background: pink;
+	}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		$("body").on("click", "tr", function(){
+			var tr_list = $(this).find("td");
+			$("#custid").val($(tr_list[0]).html());
+			$("#name").val($(tr_list[1]).html());
+			$("#address").val($(tr_list[2]).html());
+			$("#phone").val($(tr_list[3]).html());
+			
+			$("tr").removeClass("active");
+			$(this).addClass("active");
+		});
+		
+		$("body").on("mouseenter", "tr", function(){
+			$(this).addClass("high_light");
+		});
+		
+		$("body").on("mouseleave", "tr", function(){
+			$(this).removeClass("high_light");
+		});
+		
+		
+		
+		function loadCustomer() {
+			$("#list").empty();
+			
+			$.ajax({
+				url:"/list",
+				success:function(arr) {
+					$.each(arr, function(){
+						var tr = $("<tr></tr>");
+						$(tr).append($("<td></td>").html(this.custid));
+						$(tr).append($("<td></td>").html(this.name));
+						$(tr).append($("<td></td>").html(this.address));
+						$(tr).append($("<td></td>").html(this.phone));
+						
+						$("#list").append(tr);
+					});
+				}
+			});
+		}
+		
+		$("#btnAdd").click(function(){
+
+			var data = $("#f").serialize();
+			
+			$.ajax({
+				url:"/insert",
+				data: data,
+				success: function(data) {
+					loadCustomer();
+				}
+			});
+		});
+		
+		$("#btnUpdate").click(function(){
+			var data = $("#f").serialize();
+			$.ajax({
+				url:"/update",
+				data: data,
+				success: function(data) {
+					loadCustomer();
+				}
+			});
+		});
+		
+		$("#btnDelete").click(function(){
+			var data = {custid:$("#custid").val()};
+			$.ajax({
+				url:"/delete",
+				data:data,
+				success:function(){
+					loadCustomer();
+				}
+			});
+		});
+		
+		
+		loadCustomer();
+	});
+</script>
+</head>
+<body>
+	<form id="f">
+		고객번호: <input type="number" id="custid" name="custid"><br>
+		고객이름: <input type="text" id="name" name="name"><br>
+		고객주소: <input type="text" id="address" name="address"><br>
+		고객전화: <input type="text" id="phone" name="phone"><br>
+	</form>
+	<button id="btnAdd">등록</button>
+	<button id="btnUpdate">수정</button>
+	<button id="btnDelete">삭제</button>
+	<hr>
+	<table border="1" width="80%">
+		<thead>
+			<tr>
+				<th>고객번호</th>
+				<th>이름</th>
+				<th>주소</th>
+				<th>전화</th>
+			</tr>
+		</thead>
+		<tbody id="list"></tbody>
+	</table>
+
+</body>
+</html>
