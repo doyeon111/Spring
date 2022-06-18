@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../jquery-ui-1.13.1.custom/jquery-ui.css">
+<style type="text/css">
+	body {
+		font-size: 62.5%;
+	}
+	
+	h1 {
+		text-align: center;
+	}
+	
+	input[type=text],label {
+		margin-bottom: 12px;
+		padding: .4em;
+		width: 95%;
+	}
+</style>
+
+<!-- jquery ui 플러그인 -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		function loadSchedule() {
+			
+			$("#output").empty();//초기화 시켜줌
+			
+			//ajax 통신을 통하여 모든 스케줄 목록을 읽어와서 output에 h1태그로 추가해보기
+			$.ajax({
+				url:"/listSchedule",
+				success:function(arr){
+					$.each(arr, function(){ //arr만큼 반복실행
+						var h1 = $("<h1></h1>").html(this.event_name + ":" + this.event_date);
+						$("#output").append(h1);
+					});
+				}
+			});
+		}
+		
+		loadSchedule();
+		
+		$("#open_button").click(function(){
+			$("#a").dialog("open"); //버튼을 클릭해야만 다이얼로그가 열린다.
+		});
+		
+		$("#a").dialog({ //플러그인이 제공해주는 함수
+			buttons:{ //각각의 버튼의 함수를 생성
+				submit:function(){
+					var eventName = $("#event_name").val();
+					var eventDate = $("#event_date").val();
+					
+					var data = {event_name:eventName,
+								event_date:eventDate};
+					
+					$.ajax({
+						url:"/insertSchedule",
+						data:data,
+						success:function(){
+							loadSchedule();	
+						}
+					});
+					
+					$("#event_name").val("");
+					$("#event_date").val("");
+					$("#a").dialog("close");
+				},
+				
+				reset:function(){
+					$("#event_name").val("");
+					$("#event_date").val("");
+				
+				},
+				
+				cancel:function(){
+					$("#event_name").val("");
+					$("#event_date").val("");
+					$("#a").dialog("close");
+				}
+			},
+			modal:true, //modal로 할 것인지(뒤에 흐리멍텅하게 나오는 것)
+			autoOpen:false //다이얼로그를 처음에 안나오게 설정
+		}); 
+		$("#event_date").datepicker({  //달력모양으로 나타내기위한 함수
+			dateFormat:"yy/mm/dd", //사용자가 지정한 글자로 날짜가 출력됨
+			numberOfMonths:3 //달력을 3개씩 보여주세요
+		});
+	});
+</script>
+</head>
+
+
+<body>
+	<h1 id="open_button">일정 생성</h1>
+	<hr>
+	<div id="output"></div>
+	<div id="a">
+		<h1>일정 입력 하기</h1>
+		<label for="event_name">일정이름</label>
+		<input type="text" id="event_name">
+		<label>날짜</label>
+		<input type="text" id="event_date">
+	</div>
+	
+	<input type="text">
+</body>
+</html>

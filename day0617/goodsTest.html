@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>장바구니 기능</title>
+<link rel="stylesheet" href="../jquery-ui-1.13.1.custom/jquery-ui.css">
+<style type="text/css">
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	font-size: 62.5%;
+}
+
+.item {
+	margin: 3px;
+	padding: 5px;
+}
+
+.item>img {
+	width: 100px;
+	height: 100px;
+}
+
+#wrap {
+	overflow: hidden;
+}
+
+#wrap>div {
+	float: left;
+}
+
+#dock {
+	position: fixed;
+	min-height: 120px;
+	width: 100%;
+	bottom: 0px;
+	z-index: 1;
+}
+
+#dock > div {
+	float: right;
+}
+</style>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript"
+	src="../jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var arr;
+		
+		$.ajax({url:"/listGoods",success:function(data){
+			arr = data;
+			
+			$.each(arr, function(){
+				var div = $("<div></div>");
+				$(div).addClass("ui-widget-content");
+				$(div).addClass("ui-corner-all");
+				$(div).addClass("item");
+				
+				var img = $("<img/>");
+				$(img).attr("src", "../goods/" + this.fname);
+				
+				var span = $("<span></span>").html(this.no).addClass("no");
+				var p_no = $("<p></p>").html("상품번호: ").append(span);
+				var p_item = $("<p></p>").html("상품이름: " + this.item);
+				var p_qty = $("<p></p>").html("상품수량: " + this.qty);
+				var p_price = $("<p></p>").html("상품가격: " + this.price);
+				
+				
+				var input_qty = $("<input/>").attr({ //input 태그 설정하여 value값 1로 설정
+					type:"text",
+					value: 1
+				});
+				
+				$(input_qty).addClass("qty");
+				
+				$(input_qty).css("display", "none"); //처음엔 보이지 않게 설정
+				
+				$(div).append(img, p_no, p_item, p_qty, p_price, input_qty);
+				$("#wrap").append(div);
+			});
+			
+			$("#wrap > div").draggable({
+				helper: "clone",
+				zIndex:100,
+				scroll: false
+			});
+		}});
+		
+		
+		
+		$("#dock").droppable({
+			accept:"#wrap > div",
+			drop:function(event, ui){
+				$(ui.draggable).fadeOut(function(){ //점점 사라지게 하기
+					$(this).appendTo("#dock").fadeIn();
+					$(this).find(".qty").css("display", "inline-block"); //드래그 하여 밑에 왔을 시 input 나오게 설정
+				}); 
+			}
+		});
+		
+		$("body").droppable({
+			accept:"#dock > div",
+			drop: function(event, ui) {
+				$(ui.draggable).fadeOut(function(){
+					$(this).appendTo("#wrap").fadeIn();
+				});
+			}
+		});
+		
+		
+		$("#btnAddCart").click(function(){
+			var list = $("#dock").find(".item");
+			var data = [];
+			var cnt = 0;
+			$.each(list, function(){
+				var g_no = $(this).find(".no").html(); //장바구니 카트에 담긴 번호 가져옴
+				var qty = $(this).find(".qty").val(); //장바구니 카트에 담긴 상품 개수 가져옴
+				//data.push({no:0, g_no:g_no, qty:qty});
+				
+				$.ajax({
+					url:"/insertCart",
+					data: {no:0, g_no:g_no, qty:qty},
+					success:function(){
+						cnt++;
+						if(cnt == list.length) {
+							alert("장바구니에 모두 담았습니다.");
+						}
+					}
+				});
+				
+			});
+
+			
+		});
+		
+		
+		
+	});
+</script>
+</head>
+<body>
+	<div id="wrap"></div>
+	<div id="dock" class="ui-state-error">
+		<button id="btnAddCart">장바구니 추가</button>
+	</div>
+</body>
+</html>
