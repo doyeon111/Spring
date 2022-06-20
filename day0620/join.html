@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 시 전화번호 인증하기</title>
+<style type="text/css">
+	.check_num_input, #input {
+		display: none;
+	}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		var sendNUM;
+		
+		$("#btnSend").click(function(){
+			var data = {to:$("#email").val()};
+			
+			$.ajax({
+				url:"/sendMail",
+				data: data,
+				success:function(num){
+					sendNUM = num;
+					console.log(sendNUM);
+					$(".check_num_input").css("display", "block");
+				}
+			});
+		});
+		
+		$("#btnCheck").click(function(){
+			var checkNUM = $("#checkNUM").val();
+			
+			if(checkNUM == sendNUM) {
+				$("#input").css("display", "block");
+			} else {
+				alert("인증에 실패하였습니다.");
+			}
+		});
+		
+	});
+</script>
+</head>
+<body>
+	<h2>회원가입</h2>
+	이메일: <input type="email" id="email"><button id="btnSend">인증번호 전송</button>
+	<hr>
+	<div class="check_num_input">
+		인증번호 입력: <input type="text" id="checkNUM"><button id="btnCheck">인증하기</button>
+	</div>
+	<hr>
+	
+	<form id="input">
+		아이디: <input type="text" name="id" id="id"><br>
+		비밀번호: <input type="password" name="pwd" id="pwd"><br>
+		이름: <input type="text" name="name" id="name"><br>
+		자기소개: <br>
+			<textarea rows="8" cols="60"></textarea>
+		<button>가입하기</button>
+	</form>
+
+	
+</body>
+</html>

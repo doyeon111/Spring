@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>book 테이블 css, jquery 적용하기</title>
+<link rel="stylesheet" href="../jquery-ui-1.13.1.custom/jquery-ui.min.css">
+<link rel="stylesheet" href="../jquery.jqGrid-4.4.3/css/ui.jqgrid.css">
+
+<script type="text/javascript" src="../jquery.jqGrid-4.4.3/js/jquery-1.7.2.min.js"></script> <!-- cdn방식 => 인터넷주소를 쓰는 방식 -->
+<script type="text/javascript" src="../jquery.jqGrid-4.4.3/js/i18n/grid.locale-en.js"></script>
+<script type="text/javascript" src="../jquery.jqGrid-4.4.3/js/jquery.jqGrid.min.js"></script>
+
+
+<script type="text/javascript">
+	$(function(){
+		//커스텀 다이얼로그(삭제할 때 필요)
+		var delDlg = {
+			onclickSubmit:function() { //삭제버튼을 누른 후 다이얼로그가 뜨고 submit 버튼을 눌렀을 시
+				var selectedRow = $("#book").getGridParam("selrow"); //테이블에서 선택한 행번호 가져옴
+				rowData = $("#book").getRowData(selectedRow); //선택한 행의 데이터를 가져옴
+				return {bookid:rowData.bookid} //그 data로부터 bookid로 서버를 전달해준다. , 선택한 행의 데이터(도서)의 도서번호를 전달함.
+			}
+		}
+		
+		$("#book").jqGrid({  //jqGrid 설정
+			url:"/listBook", //서버에 listBook 요청
+			editurl:"/updateBook", //추가, 수정, 삭제를 oper를 통해서 한꺼번에 전달됨
+			pager: "#pager", //페이징처리
+			caption: "Books", //테이블제목
+			height: "100%" ,//세로
+			rowNum:20 , //한화면에 보여질 행수
+			rowList:[10,20,30], //10, 20, 30개씩도 행을 본다.
+			colNames: ["bookid", "bookname", "publisher", "price"], //테이블의 제목(컬럼)
+			colModel: [ //배열로 만들기
+				{name:"bookid", index:"bookid", width:50, editable:true},
+				{name:"bookname", index:"bookname", width:300, editable:true},
+				{name:"publisher", index:"publisher", width:150, editable:true},
+				{name:"price", index:"price", width:100, editable:true},
+			]
+			
+		}).navGrid("#pager", {
+			search: true, //검색아이콘
+			edit: true, //수정아이콘
+			add: true, //추가아이콘
+			del: true //삭제아이콘
+		}, {}, {}, delDlg); //수정할 다이얼로그 없음, 추가할 다이얼로그 x, 삭제할 다이얼로그는 delDlg 사용
+	});
+</script>
+</head>
+<body>
+	<table id="book"></table>
+	<div id="pager"></div>
+</body>
+</html>
