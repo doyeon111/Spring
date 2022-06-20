@@ -18,7 +18,7 @@ public class SpringConfig {
 		r.setHost("smtp.gmail.com");
 		r.setPort(587);
 		r.setUsername("lby9905@gmail.com");	// gmail계정을 설정합니다.
-		r.setPassword("mrbolryxxjysdjof");  // <--- 발행된 암호를 여기에 넣어 주세요.
+		r.setPassword("16자리 비밀번호");  // <--- 발행된 암호를 여기에 넣어 주세요.
 		r.setDefaultEncoding("UTF-8");
 		
 		Properties prop = new Properties();
