@@ -1,0 +1,9 @@
+create table sistlog(
+	no number primary key,
+	url varchar2(100),
+	ip varchar2(100),
+	time varchar2(100),
+	delay number
+);
+
+create sequence seq_sistlog;
