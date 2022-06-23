@@ -1,0 +1,14 @@
+thymeleaf는 jsp 대신에 사용하는 것
+	==> jsp에서는 controller에서 상태유지 한 것을 jstl 태그와 표현식을 이용하여 출력
+	==> thymeleaf에서는 controller에서 상태유지 한 것을 thymeleaf를 이용해서 출력
+	
+	
+- thymeleaf에서 Ajax은 어떻게 하나요?
+	==> 원래 하던대로 하면 된다. (여태까지 했던 방식)
+		XmlHttpRequest, 
+		jquery Ajax을 이용할 수 있다.
+
+---------------------------------------------------------------------------------
+
+jquery 를 대신 하는 것
+==> React, Vue.js : axios를 이용하여 Ajax을 수행한다.

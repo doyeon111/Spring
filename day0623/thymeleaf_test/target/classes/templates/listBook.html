@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#btnNews").click(function(){
+			$.ajax({
+				url: "/news",
+				success: function(data) {
+					alert(data);
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+
+
+	<h2>도서 목록</h2>
+	<hr>
+	<button id="btnNews">실시간 뉴스 읽어오기</button>
+	<hr>
+	<table border="1" width="80%">
+		<tr>
+			<th>도서번호</th>
+			<th>도서이름</th>
+		</tr>
+		
+		<tr th:each="b : ${list}"> <!-- 상태유지한 bookvo를 반복문을 돌려 list로 가져옴 -->
+			<td th:text="${b.bookid}"></td>
+			<td>
+				<a th:href="@{'/detailBook/'+${b.bookid}}" th:text="${b.bookname}"></a> <!-- 상세보기 화면으로 이동할 경우 아이디를 부여할 때 uri 방식으로 전달하기를 권장함  -->
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

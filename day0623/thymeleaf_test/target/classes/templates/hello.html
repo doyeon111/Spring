@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> <!-- thymeleaf 설정 -->
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 상태유지한 정보를 출력 -->
+	이름: <span th:text="${name}"></span><br> <!-- th(타임리프):text~~ -->
+	나이: <span th:text="${age}"></span><br>
+	<hr>
+	<h2>과일 목록</h2>
+	<ul>
+		<li th:each="f:${list}"> <!-- list를 반복하여 f에서 가져옴 -->
+			<span th:text="${f}"></span>
+		</li>
+	</ul>
+</body>
+</html
+>
