@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>도서 수정</h2>
+	<hr>
+	<form action="/saveBook" method="post">
+		도서번호: <span th:value="${b.bookid}"></span> 
+		<input type="hidden" name="bookid" th:name="bookid" th:value="${b.bookid}"><br>
+		도서이름: <input type="text" name="bookname" th:name="bookname" th:value="${b.bookname}"><br>
+		출판사: <input type="text" name="publisher" th:name="publisher" th:value="${b.publisher}"><br>
+		도서가격: <input type="number" name="price" th:name="price" th:value="${b.price}"><br>
+		<input type="submit" value="수정">
+	</form>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>json으로 공공데이터 파일 받아오기</title>
+<style type="text/css">
+span {
+	display: inline-block;
+	margin: 5px;
+	cursor: pointer;
+}
+</style>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3fb6f57c82b8216a45b6142adbf7d0c1"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+
+/*
+야영(캠핑)장명: "오션파크"
+소재지도로명주소: "충청남도 태안군 남면 몽산포길 161"
+위도: "36.6744920527"
+경도: "126.2808663915"
+*/
+	$(function() {
+		
+		mapContainer = document.getElementById('map'); // 지도를 표시할 div 여기는 jquery가 먹지 않아서 이렇게 js로 표현해도 됨
+		
+		mapOption = {
+			center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표(처음 표시되는 장소)
+			level : 3// 지도의 확대 레벨
+		};
+		
+		map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		
+		
+		
+		var arr;
+		
+		//페이징 처리
+		var totalRecords=1; // 전체 레코드 수
+		var totalPage=1; //전체 페이지 수
+		var pageSize=10; //한 화면에 보여줄 레코드 수
+		var pageGroup=10; //한 화면에 보여줄 페이지 수
+		
+		
+		$.ajax({
+			url:"전국야영(캠핑)장표준데이터.json",
+			success:function(data) {
+				arr = data['records']; //arr에다가 data를 넣는다.
+				console.log("전체 데이터 수:" + arr.length)
+				
+				totalRecords = arr.length; //전체레코드수는 배열의 길이
+				totalPage = Math.ceil(totalRecords / pageSize);
+
+				printPage(1); //현재 페이지
+				
+				printPageNumber(1); //페이지 번호 출력(처음은 1페이지 전달)
+				
+			}
+		});
+		
+		//레코드 출력
+		function printPage(pageNUM) {
+			$("#pageing").empty(); //비워줌.
+			
+			$("#list").empty(); //이미 있는 레코드들을 지우기
+			
+			var start = (pageNUM - 1) * pageSize + 1; //시작
+			var end = start + pageSize - 1;
+			
+			
+			for(var i=start; i<=end; i++) {
+				var row = arr[i]; //객체를 들고옴	
+				
+				var tr = $("<tr></tr>");
+				$(tr).addClass("item"); 
+				$(tr).attr("lat", row['위도']) //tr에게 속성 lat 부여
+				$(tr).attr("lng", row['경도']) //tr에게 속성 lng 부여
+				$(tr).append($("<td></td>").html(row['야영(캠핑)장명']));
+				$(tr).append($("<td></td>").html(row['소재지도로명주소']));
+				$(tr).append($("<td></td>").html(row['위도']));
+				$(tr).append($("<td></td>").html(row['경도']));
+				$("#list").append(tr);
+			}
+		} //end printPage
+		
+		//한 화면에 10개의 페이지 번호 출력하고 싶다.
+		//만약, 현재 페이지가 1,2,3,4,5,6,7,8,9,10 페이지라면 ==> 시작페이지는 1, 마지막 페이지는 10
+		//만약, 현재 페이지가 11,12,13,14,15,16,17,18,19,20 이라면 ==> 시작페이지는 11, 마지막 페이지는 20
+		
+		//페이지 번호 출력
+		function printPageNumber(pageNUM) { //페이지 수 보여주는 함수
+			var startPage = Math.floor((pageNUM - 1) / pageGroup) * pageGroup + 1; //무조건 버림수를 취해=> math.floor
+			var endPage = startPage + pageGroup - 1;
+			
+			//end 페이지가 total 페이지보다 커졌다면 endpage는 totalpage를 가져라
+			if(endPage > totalPage ) {
+				endPage = totalPage;
+			}
+			
+			//startPage가 1보다 크다면 [이전] 글자 출력
+			if(startPage > 1) {
+				var span = $("<span></span>").html("[이전]");//이전 글자 출력
+				$(span).attr("page", startPage - 1); //page가 startPage - 1 이라는 속성 추가
+				$("#pageing").append(span);
+			}
+			
+			for (i = startPage; i <= endPage; i++) { //total페이지 만큼 루프돌기
+				var span = $("<span></span>").html(i); //span안에 들어가는 글자를 
+				$(span).attr("page", i); //page가 i라는 속성을 추가
+				$("#pageing").append(span);
+				
+			}
+			
+			//endPage가 totalPage보다 더 작다면 [다음]을 만들어준다.
+			if(endPage < totalPage) {
+				var span = $("<span></span>").html("[다음]");//다음 글자 출력
+				$(span).attr("page", endPage + 1); //page가 endPage + 1 이라는 속성 추가
+				$("#pageing").append(span);
+			}
+		}
+		
+		//미래에 만들어진 (span)노드에 대해서 이벤트를 건다.(원래있는 노드 ==> ㅇdocument)
+		$(document).on("click", "span", function(){
+			var page = $(this).attr("page");
+			printPage(page);
+			printPageNumber(page);
+		});
+		
+		//미래에 만들어진 item이라는 클래스에 대하여 눌러진 아이템의 위도, 경도를 가져옴
+		$(document).on("click", ".item", function(){
+			var lat = Number( $(this).attr("lat"));
+			var lng = Number($(this).attr("lng"));
+			console.log(lat);
+			console.log(lng);
+			
+			newLatLng = new kakao.maps.LatLng(lat, lng);
+			map.panTo(newLatLng);
+			
+			// 마커를 생성합니다
+			var marker = new kakao.maps.Marker({
+			    position: newLatLng
+			});
+
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map);
+
+		});
+			
+			
+		});
+	
+	
+
+	
+</script>
+</head>
+<body>
+	<div id="pageing"></div>
+	<table border="1" width="80%">
+		<thead>
+			<tr>
+				<th>캠핑장명</th>
+				<th>주소</th>
+				<th>위도</th>
+				<th>경도</th>
+			</tr>
+		</thead>
+		<tbody id="list">
+		</tbody>
+	</table>
+	<hr>
+	<div id="map" style="width: 100%; height: 350px;"></div>
+</body>
+</html>

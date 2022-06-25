@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>도서 주문</h2>
+	<hr>
+	<form action="/insertOrders" method="post">
+		주문번호: <input type="number" name="orderid" th:value="${no}"><br> <!-- 주문번호는 상태유지(no) 하고옴 -->
+		고객번호: 
+		<select name="customer.custid"> <!-- customer에 담긴 custid를 가져와야함 -->
+			<option th:each="c:${c_list}" th:text="${c.name}" th:value="${c.custid}"></option> <!-- 컨트롤러에 고객목록 상태유지해놓음, 보여주는것은 고객이름, 값을 전달하는 것은 고객번호  -->
+		</select>
+		<br>
+		도서번호: 
+		<select name="book.bookid">
+			<option th:each="b:${b_list}" th:text="${b.bookname}" th:value="${b.bookid}"></option>
+		</select><br>
+		주문가격: <input type="number" name="saleprice"><br>
+	<!-- 	주문일: <input type="date" name="orderdate">  --> <!-- sysdate으로 설정해놨음 -->
+		<input type="submit" value="주문">
+	</form>
+</body>
+</html>
