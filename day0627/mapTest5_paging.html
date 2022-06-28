@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	span{
+		display: inline-block;
+		margin: 5px;
+		cursor: pointer;
+	}
+</style>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3fb6f57c82b8216a45b6142adbf7d0c1"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	mapContainer = document.getElementById('map');
+	
+	mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 1 // 지도의 확대 레벨
+	};
+		
+	map = new kakao.maps.Map(mapContainer, mapOption); 
+	var arr;
+	
+	var totalRecords=1;		//전체레코드 수
+	var totalPage=1;		//전체페이지 수	
+	var pageSize=10;		//한화면에 보여줄 레코드 수 
+	var pageGroup = 10;		//한화면에 보여줄 페이지 수
+	
+	
+	$.ajax({
+		url:"전국야영(캠핑)장표준데이터.json",
+		success:function(data){			
+			arr = data['records'];	
+			console.log("전체데이터수:"+arr.length)
+			totalRecords = arr.length;
+			totalPage =  Math.ceil( totalRecords/pageSize );			
+			printPage(1); 		//현재페이지에 보여줄 레코드를 10개를 출력
+			printPageNumber(1);	//현재페이지에 보여줄 페이지 번호 10개를 출력
+		}
+	});	
+	
+	
+	//현재페이지에 해당하는 레코드 10개를 출력
+	function printPage(pageNUM){ //매개변수로 페이지 번호를 전달 바당요
+		$("#list").empty(); 	//이전에 내용을 모두 지워줍니다.
+		
+		var start = (pageNUM-1)*pageSize + 1; 	//현재페이지에 따른 보여줄 시작레코드를 계산
+		var end = start + pageSize -1;			//현재페이지에 따른 보여줄 마지막 레코드를 계산
+		
+		if(end > totalRecords){
+			end = totalRecords;
+		}
+		
+		console.log("start:"+start);
+		console.log("end:"+end);
+		
+		//ajax 통신을 수행한 데이터를 배열에 담았기 때문에 시작레코드의 위치를 start-1부터 출발
+		//마지막 레코드는 end-1까지 
+		for(var i=start-1;i<end;i++){  			//현재페이지에 따른 시작레코드의 위치 부터 마지막 레코드까지 반복문 실행
+			var row = arr[i];  					//반복문을 수행하면 야영장 정보를 하나씩 갖고 옵니다
+			console.log(row)
+			
+				var tr = $("<tr></tr>");
+				$(tr).addClass("item");//다른 tr과 구별하도록 클래스이름을 부여 합니다.
+				$(tr).attr("lat",row['위도']);  //생성된 tr태그에 위도의 속성값을 설정합니다.
+				$(tr).attr("lng",row['경도']);  //생성된 tr태그에 경도의 속성괎을 설정합니다.
+				
+				$(tr).append( $("<td></td>").html(  row['야영(캠핑)장명'] ) );
+				$(tr).append( $("<td></td>").html(  row['소재지도로명주소'] ) );
+				$(tr).append( $("<td></td>").html(  row['위도'] ) );
+				$(tr).append( $("<td></td>").html(  row['경도'] ) );
+				$("#list").append(tr);
+			
+		}
+	}//end pringPage
+		
+	function printPageNumber(pageNUM){
+
+		$("#pageing").empty();  //페이지번호 출력하는 자리를 지워 줍니다.
+		var startPage = Math.floor((pageNUM-1)/pageGroup)*pageGroup  + 1 ; 	
+		var endPage = startPage + pageGroup - 1;
+		
+		
+		if(endPage > totalPage){
+			endPage = totalPage;
+		}
+		console.log("--------------------------------------------")
+		console.log("페이지번호:",pageNUM);
+		console.log("시작페이지:"+startPage);
+		console.log("마지막페이지"+endPage);
+	
+		
+		if(startPage > 1){
+			var span = $("<span></span>").html("[맨처음으로]");
+			$(span).attr("page",1);
+			$("#pageing").append(span);
+		}
+		if(startPage > 1){
+			var span = $("<span></span>").html("[이전]");
+			$(span).attr("page",startPage - 1);
+			$("#pageing").append(span);
+		}
+		for(i = startPage; i<=endPage ; i++){
+			var span = $("<span></span>").html(i);
+			$(span).attr("page",i);
+			$("#pageing").append(span);					
+		}
+	
+		if(endPage < totalPage){
+			var span = $("<span></span>").html("[다음]");
+			$(span).attr("page",endPage+1);
+			$("#pageing").append(span);
+		}
+
+		if(endPage < totalPage){
+			var span = $("<span></span>").html("[맨끝으로]");
+			//page = totalPage - ( totalPage % pageGroup -1  )
+			page = totalPage;
+			//console.log("맨마지막 페이지그룹의 시작페이지==>"+page);
+			$(span).attr("page",page);
+			$("#pageing").append(span);
+		}
+	}
+
+	$(document).on("click", "span", function(){
+		var page = $(this).attr("page");//page속성값을 읽어 옵니다.
+		console.log( $(this).html() );
+		console.log( "page"+page );
+		printPageNumber(page);			//그 페이지에 보여줄 페이지번호 10개를 출력
+		printPage(page);				//그 페이지에 보여줄 레코드 10개를 출력
+	});
+
+	$(document).on("click",".item", function(){
+		var lat = Number( $(this).attr("lat")); //lat 속성값을 읽어 옵니다.
+		var lng = Number( $(this).attr("lng")); //lng 속성값을 읽어 옵니다.
+		
+		newLatLng = new kakao.maps.LatLng(lat, lng);
+		map.panTo(newLatLng);
+		var marker = new kakao.maps.Marker({
+		    position: newLatLng
+		});
+		marker.setMap(map);
+		
+	});
+})
+
+
+
+
+
+
+</script>
+</head>
+<body>
+	<div id="pageing"></div>
+	<table border="1" width="80%">
+		<thead>
+			<tr>
+				<th>캠핑장명</th>
+				<th>주소</th>				
+				<th>위도</th>				
+				<th>경도</th>				
+			</tr>
+		</thead>
+		<tbody id="list">		
+		</tbody>
+	</table>
+	<hr>
+	<div id="map" style="width:100%;height:350px;"></div>
+</body>
+</html>
+
+
+
+
+
+
+
