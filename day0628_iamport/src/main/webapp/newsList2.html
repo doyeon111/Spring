@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	#list {
+		list-style : none; 
+	}
+</style>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+			$.ajax({
+				url : "/newsList",
+				success : function(arr) {
+					$.each(arr, function() { //arr만큼 반복실행
+						if(this.title != "") {
+							var li = $("<li></li>").html(this.title);
+							$(li).attr("url", this.url);
+							$("#list").append(li);
+						}
+						
+					});
+				}
+			});
+
+			$(document).on("click", "li", function(){ //li 태그를 선택했을 때 url을 불러와서 이동
+				location.href = $(this).attr("url"); //attr은 자바스크립트이기 때문에 앞에 $을 붙여줘야 한다.
+			});
+
+	});
+</script>
+</head>
+<body>
+	<ul id="list">
+
+	</ul>
+</body>
+</html>

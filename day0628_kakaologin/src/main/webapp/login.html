@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script> <!-- 카카오 로그인과 관련된 함수들을 제공해줌 -->
+<script type="text/javascript">
+	Kakao.init("3fb6f57c82b8216a45b6142adbf7d0c1");
+	function kakaoLogin(){
+		//인증해주는 함수
+		Kakao.Auth.loginForm({
+			scope: "profile_nickname,account_email",  //kakao developers 사이트에 있는 (동의항목)에 있는 이름들 가져와야함.
+			success: function(authObj) { //ajax 통신을 성공해서 왔으면 함수 실행, 인증한 정보 가져옴
+				Kakao.API.request({
+					url:"/v2/user/me", //로그인한 회원의 정보를 갖고오는 url
+					success: function(res) { //성공했을 시
+						var name = res.kakao_account.profile.nickname;
+						var email = res.kakao_account.email;
+						//이동시키기 위해서 사용
+						location.href = "/KakaoLoginOK/"+name+"/"+email; 
+						
+					}
+				});
+			}
+			
+		});
+	}
+</script>
+</head>
+<body>
+	<a href="javascript:kakaoLogin()">카카오 로그인</a> <!-- 위에서 만든 kakaoLogin 함수 사용하겠다는 의미 -->
+</body>
+</html>
